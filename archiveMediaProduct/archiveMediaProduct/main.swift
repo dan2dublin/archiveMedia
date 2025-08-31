@@ -36,7 +36,7 @@ func moveVideos(from directory: URL) {
                 let destURL = toArchiveDir.appendingPathComponent(item.lastPathComponent)
                 do {
                     // Move the file
-                  //  try fm.moveItem(at: item, to: destURL)
+                    try fm.moveItem(at: item, to: destURL)
                     print("Moved \(item.path) to \(destURL.path)")
                 } catch {
                     print("Failed to move \(item.path): \(error)")
