@@ -62,3 +62,25 @@ if !FileManager.default.fileExists(atPath: toArchiveDir.path) {
 // Move videos from Desktop and Movies (non-recursively)
 moveVideos(from: desktopDir)
 moveVideos(from: moviesDir)
+
+// After copying, move the toArchive folder to the SMB server
+let dateFormatter = DateFormatter()
+dateFormatter.dateFormat = "yyyyMMdd_HHmmss"
+let dateString = dateFormatter.string(from: Date())
+let serverFolderName = "video_" + dateString
+
+// SMB mount point (assumes already mounted at /Volumes)
+let smbMountPoint = "/Volumes/Public" // Change if your mount point is different
+let serverDestDir = URL(fileURLWithPath: smbMountPoint).appendingPathComponent(serverFolderName, isDirectory: true)
+
+let fm = FileManager.default
+do {
+    // Create the destination folder on the server
+    try fm.createDirectory(at: serverDestDir, withIntermediateDirectories: true, attributes: nil)
+    // Move the toArchive folder to the server destination
+    let finalDest = serverDestDir.appendingPathComponent("toArchive", isDirectory: true)
+    try fm.moveItem(at: toArchiveDir, to: finalDest)
+    print("Moved toArchive to \(finalDest.path)")
+} catch {
+    print("Failed to move toArchive to server: \(error)")
+}
