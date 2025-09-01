@@ -20,8 +20,7 @@ let homeDir = FileManager.default.homeDirectoryForCurrentUser
 let desktopDir = homeDir.appendingPathComponent("Desktop")
 let moviesDir = homeDir.appendingPathComponent("Movies")
 
-// Define the destination directory
-//let toArchiveDir = URL(fileURLWithPath: "/users/danmcsweeney/Movies/toArchive", isDirectory: true)
+// Define the destination directory using the current user's home directory
 let toArchiveDir = homeDir.appendingPathComponent("Movies/toArchive", isDirectory: true)
 
 // File extensions to look for
@@ -37,10 +36,11 @@ func moveVideos(from directory: URL) {
                 let destURL = toArchiveDir.appendingPathComponent(item.lastPathComponent)
                 do {
                     // Move the file
-                    try fm.moveItem(at: item, to: destURL)
-                    print("Moved \(item.path) to \(destURL.path)")
+                //    try fm.moveItem(at: item, to: destURL)
+                    try fm.copyItem(at: item, to: destURL)
+                    print("Copied \(item.path) to \(destURL.path)")
                 } catch {
-                    print("Failed to move \(item.path): \(error)")
+                    print("Failed to Copy \(item.path): \(error)")
                 }
             }
         }
