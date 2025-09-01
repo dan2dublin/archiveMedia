@@ -21,7 +21,8 @@ let desktopDir = homeDir.appendingPathComponent("Desktop")
 let moviesDir = homeDir.appendingPathComponent("Movies")
 
 // Define the destination directory
-let toArchiveDir = URL(fileURLWithPath: "/users/danmcsweeney/Movies/toArchive", isDirectory: true)
+//let toArchiveDir = URL(fileURLWithPath: "/users/danmcsweeney/Movies/toArchive", isDirectory: true)
+let toArchiveDir = homeDir.appendingPathComponent("Movies/toArchive", isDirectory: true)
 
 // File extensions to look for
 let videoExtensions = ["mov", "mpg"]
